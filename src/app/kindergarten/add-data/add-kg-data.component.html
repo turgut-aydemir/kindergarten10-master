@@ -1,0 +1,9 @@
+<form [formGroup]="addKindergartenForm" (ngSubmit)="onSubmit()">
+    <h2>Ihr Kindergarten anmelden!</h2>
+    <input placeholder="Name" type="input" formControlName="name"><br />
+    <input placeholder="address" type="input" formControlName="address"><br />
+    <input placeholder="Betreiber" type="input" formControlName="betreiber"><br />
+    <input placeholder="Type" type="input" formControlName="typ"><br />
+    
+    <button type="submit">Erfassen</button>
+</form>

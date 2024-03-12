@@ -1,0 +1,4 @@
+<app-kg-data [currentPage]="currentPage" (selectPageEvent)="receiveMessage($event)"></app-kg-data>
+<br>
+<app-button [showAddData]="showAddData" (toggleButtonClickEvent)="toggleButtonClicked($event)"></app-button>
+<app-add-kg-data *ngIf="showAddData" [currentPage]="currentPage"></app-add-kg-data>
