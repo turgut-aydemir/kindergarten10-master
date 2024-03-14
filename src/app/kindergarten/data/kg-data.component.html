@@ -5,6 +5,7 @@
         <p class="col-xl-1 col-lg-1">Adresse</p>
         <p class="col-xl-1 col-lg-1">Betreiber</p>
         <p class="col-xl-1 col-lg-1">Type</p>
+        <p class="col-xl-1 col-lg-1">verfügbare Plätze</p>
         <p class="col-xl-1 col-lg-1"></p>
     </div>
     <div *ngFor="let kindergarden of storeService.kindergardens" class="row justify-content-center align-items-center">
@@ -13,10 +14,12 @@
         <p class="col-xl-1 col-lg-1">{{kindergarden.address}}</p>
         <p class="col-xl-1 col-lg-1">{{kindergarden.betreiber}}</p>
         <p class="col-xl-1 col-lg-1">{{kindergarden.typ }}</p>
-        <div class="col-xl-1 col-lg-1">
-            <button (click)="cancelRegistration(kindergarden.id)">Kind abmelden</button>
-        </div>
+        <p class="col-xl-1 col-lg-1">{{kindergarden.typ }}</p> 
     </div>
 
+    <div class="row">
+        <div class="col-12 d-flex justify-content-center">
+            <button [ngClass]="page == currentPage ? 'active' : ''" (click)="selectPage(page)" type="button" *ngFor="let page of returnAllPages()">{{page}}</button>
+        </div>
+    </div>
 </div>
-

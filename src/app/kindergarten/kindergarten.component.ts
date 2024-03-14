@@ -13,8 +13,4 @@ export class KindergartenComponent {
     this.currentPage = newPageCount;
   }
 
-  toggleButtonClicked(showAddData: boolean) {
-    this.showAddData = showAddData;
-  }
-
 }

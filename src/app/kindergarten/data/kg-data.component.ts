@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { BackendService } from 'src/app/shared/backend.service';
-import { CHILDREN_PER_PAGE } from 'src/app/shared/constants';
+import { KINDERGARTEN_PER_PAGE } from 'src/app/shared/constants';
 import { StoreService } from 'src/app/shared/store.service';
 
 @Component({
@@ -16,12 +16,24 @@ export class KGDataComponent implements OnInit {
   public page: number = 0;
 
   ngOnInit(): void {
-    this.backendService.getKindergardens();
+    this.backendService.getKindergarden(this.currentPage);
   }
 
-  public cancelRegistration(childId: number) {
-  ///  this.backendService.deleteChildData(childId, this.currentPage);
+  selectPage(i: any) {
+    let currentPage = i;
+    this.selectPageEvent.emit(currentPage)
+    this.backendService.getKindergarden(currentPage);
   }
+
+  public returnAllPages() {
+    let res = [];
+    const pageCount = Math.ceil(this.storeService.kindergardenTotalCount / KINDERGARTEN_PER_PAGE);
+    for (let i = 0; i < pageCount; i++) {
+      res.push(i + 1);
+    }
+    return res;
+  }
+
 }
 
 

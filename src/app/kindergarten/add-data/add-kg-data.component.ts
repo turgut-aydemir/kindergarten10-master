@@ -27,7 +27,7 @@ export class AddKGDataComponent implements OnInit{
   onSubmit() {
     if(this.addKindergartenForm.valid) {
       console.log(this.currentPage);
-      this.backendService.addKindergardenData(this.addKindergartenForm.value);
+      this.backendService.addKindergardenData(this.addKindergartenForm.value, this.currentPage);
     }
   }
 }

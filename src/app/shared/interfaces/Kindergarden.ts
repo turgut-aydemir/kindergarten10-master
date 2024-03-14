@@ -6,7 +6,17 @@ export interface Kindergarden {
     typ: Typ,
   }
 
-  export enum Typ {
+export enum Typ {
       privat = 1,
       oeffentlich = 2,
+  }
+
+export interface KindergardenResponse {
+    id: number;
+    name: string;
+    address: string,
+    typ: Typ,
+    availablePlace: number
+    kindergarden: Kindergarden
+    betreiber: string
   }
