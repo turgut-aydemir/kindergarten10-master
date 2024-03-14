@@ -11,6 +11,7 @@ export class StoreService {
 
   public kindergardens: Kindergarden[] = [];
   public kindergarden: KindergardenResponse[] = [];
+  public child: Child [] = [];
   public children: ChildResponse[] = []
   public childrenTotalCount: number = 0;
   public kindergardenTotalCount: number = 0;

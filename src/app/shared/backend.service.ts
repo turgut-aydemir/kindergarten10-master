@@ -41,12 +41,37 @@ export class BackendService {
       })
     }
 
-    public addKindergardenData(kindergarden: Kindergarden, page:  number) {
+    public addKindergardenData(kindergarden: Kindergarden, page: number, image?: File) {
+      // Convert image file to base64 string if an image is provided
+      if (image) {
+        const reader = new FileReader();
+        reader.readAsDataURL(image);
+        reader.onload = () => {
+          // Assign the base64 string to the kindergarden object
+          kindergarden.uploadedPicture = reader.result as string;
+          // Post the kindergarten data to your backend
+          this.postKindergartenData(kindergarden, page);
+        };
+      } else {
+        // If no image provided, post the kindergarten data without the image
+        this.postKindergartenData(kindergarden, page);
+      }
+    }
+    
+  
+    private postKindergartenData(kindergarden: Kindergarden, page: number) {
       this.http.post('http://localhost:5000/kindergardens', kindergarden).subscribe(_ => {
         this.getKindergarden(page);
-      })
+      });
     }
-
+  
+    
+    private postKindergardenData(kindergarden: Kindergarden, page: number) {
+      this.http.post('http://localhost:5000/kindergardens', kindergarden).subscribe(_ => {
+        this.getKindergarden(page);
+      });
+    }
+  
     public deleteChildData(childId: string, page: number) {
       this.http.delete(`http://localhost:5000/childs/${childId}`).subscribe(_=> {
         this.getChildren(page);
