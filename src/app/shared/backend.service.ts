@@ -45,10 +45,10 @@ export class BackendService {
         }
 
     public addChildData(child: Child, page:  number) {
-      this.checkAndReduceAvailablePlaces(child.kindergardenId)
+      if(this.checkAndReduceAvailablePlaces(child.kindergardenId)){
         this.http.post('http://localhost:5000/childs', child).subscribe(_ => {
         this.getChildren(page);
-      })
+      })}
     }
 
     private checkAndReduceAvailablePlaces(id: number){
@@ -62,7 +62,9 @@ export class BackendService {
         });
       } else {
         console.log('No available places left for this kindergarten. Please select another one');
+        return false
       }
+      return true
   }
 
     public addKindergardenData(kindergarden: Kindergarden, page: number, image?: File) {
