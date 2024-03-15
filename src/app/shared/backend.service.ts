@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Kindergarden, KindergardenResponse } from './interfaces/Kindergarden';
+import { Kindergarden } from './interfaces/Kindergarden';
 import { StoreService } from './store.service';
 import { Child, ChildResponse } from './interfaces/Child';
 import { CHILDREN_PER_PAGE, KINDERGARTEN_PER_PAGE, KINDERGARTEN_PER_PAGE2 } from './constants';
+
 
 @Injectable({
   providedIn: 'root'
@@ -44,29 +45,56 @@ export class BackendService {
         }
 
     public addChildData(child: Child, page:  number) {
-      this.http.post('http://localhost:5000/childs', child).subscribe(_ => {
+      this.checkAndReduceAvailablePlaces(child.kindergardenId)
+        this.http.post('http://localhost:5000/childs', child).subscribe(_ => {
         this.getChildren(page);
       })
     }
 
+    private checkAndReduceAvailablePlaces(id: number){
+      let kindergarten = this.storeService.kindergardens.find(kg => kg.id === id);
+        if (kindergarten && kindergarten.availablePlaces > 0) {
+          kindergarten.availablePlaces--;
+        this.http.put(`http://localhost:5000/kindergardens/${id}`, kindergarten).subscribe(response => {
+          console.log('Kindergarten data updated successfully:', response);
+        }, error => {
+          console.error('Error updating kindergarten data:', error);
+        });
+      } else {
+        console.log('No available places left for this kindergarten. Please select another one');
+      }
+  }
+
+  /*private increaseAvailablePlaces(id: string){
+    let child = this.storeService.children.find(kid => kid.id === id);
+    console.log('child:', id);
+    console.log('child:', child);
+    if (child) {const id2 = child.kindergardenId;
+    let kindergarten = this.storeService.kindergardens.find(kg => kg.id === id2);
+    console.log('kindergarten:', kindergarten);
+      if (kindergarten) {
+        kindergarten.availablePlaces++;
+      this.http.put(`http://localhost:5000/kindergardens/${id2}`, kindergarten).subscribe(response => {
+        console.log('Kindergarten data updated successfully:', response);
+      }, error => {
+        console.error('Error updating kindergarten data:', error);
+      });
+    }}
+}*/
+
     public addKindergardenData(kindergarden: Kindergarden, page: number, image?: File) {
-      // Convert image file to base64 string if an image is provided
       if (image) {
         const reader = new FileReader();
         reader.readAsDataURL(image);
         reader.onload = () => {
-          // Assign the base64 string to the kindergarden object
           kindergarden.uploadedPicture = reader.result as string;
-          // Post the kindergarten data to your backend
           this.postKindergartenData(kindergarden, page);
         };
       } else {
-        // If no image provided, post the kindergarten data without the image
         this.postKindergartenData(kindergarden, page);
       }
     }
     
-  
     private postKindergartenData(kindergarden: Kindergarden, page: number) {
       this.http.post('http://localhost:5000/kindergardens', kindergarden).subscribe(_ => {
         this.getKindergarden(page);
@@ -74,6 +102,7 @@ export class BackendService {
     }
   
     public deleteChildData(childId: string, page: number) {
+      //this.increaseAvailablePlaces(childId)
       this.http.delete(`http://localhost:5000/childs/${childId}`).subscribe(_=> {
         this.getChildren(page);
       })

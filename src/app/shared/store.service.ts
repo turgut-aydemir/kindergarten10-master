@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Kindergarden, KindergardenResponse } from './interfaces/Kindergarden';
+import { Kindergarden } from './interfaces/Kindergarden';
 import { Child, ChildResponse } from './interfaces/Child';
 
 @Injectable({
@@ -10,7 +10,6 @@ export class StoreService {
   constructor() { }
 
   public kindergardens: Kindergarden[] = [];
-  public kindergarden: KindergardenResponse[] = [];
   public child: Child [] = [];
   public children: ChildResponse[] = []
   public childrenTotalCount: number = 0;
