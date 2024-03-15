@@ -65,23 +65,6 @@ export class BackendService {
       }
   }
 
-  /*private increaseAvailablePlaces(id: string){
-    let child = this.storeService.children.find(kid => kid.id === id);
-    console.log('child:', id);
-    console.log('child:', child);
-    if (child) {const id2 = child.kindergardenId;
-    let kindergarten = this.storeService.kindergardens.find(kg => kg.id === id2);
-    console.log('kindergarten:', kindergarten);
-      if (kindergarten) {
-        kindergarten.availablePlaces++;
-      this.http.put(`http://localhost:5000/kindergardens/${id2}`, kindergarten).subscribe(response => {
-        console.log('Kindergarten data updated successfully:', response);
-      }, error => {
-        console.error('Error updating kindergarten data:', error);
-      });
-    }}
-}*/
-
     public addKindergardenData(kindergarden: Kindergarden, page: number, image?: File) {
       if (image) {
         const reader = new FileReader();
@@ -102,7 +85,6 @@ export class BackendService {
     }
   
     public deleteChildData(childId: string, page: number) {
-      //this.increaseAvailablePlaces(childId)
       this.http.delete(`http://localhost:5000/childs/${childId}`).subscribe(_=> {
         this.getChildren(page);
       })
