@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Kindergarden, KindergardenResponse } from './interfaces/Kindergarden';
 import { StoreService } from './store.service';
 import { Child, ChildResponse } from './interfaces/Child';
-import { CHILDREN_PER_PAGE, KINDERGARTEN_PER_PAGE } from './constants';
+import { CHILDREN_PER_PAGE, KINDERGARTEN_PER_PAGE, KINDERGARTEN_PER_PAGE2 } from './constants';
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +35,14 @@ export class BackendService {
       });
       }
 
+      public getKindergarden2(page: number) {
+        this.http.get<Kindergarden[]>(`http://localhost:5000/kindergardens?_expand=id&_page=${page}&_limit=${KINDERGARTEN_PER_PAGE2}`, { observe: 'response' }).subscribe(data => {
+          this.storeService.kindergardens = data.body!;
+          this.storeService.kindergardenTotalCount = Number(data.headers.get('X-Total-Count'));
+          this.storeService.isLoading = false;
+        });
+        }
+
     public addChildData(child: Child, page:  number) {
       this.http.post('http://localhost:5000/childs', child).subscribe(_ => {
         this.getChildren(page);
@@ -60,13 +68,6 @@ export class BackendService {
     
   
     private postKindergartenData(kindergarden: Kindergarden, page: number) {
-      this.http.post('http://localhost:5000/kindergardens', kindergarden).subscribe(_ => {
-        this.getKindergarden(page);
-      });
-    }
-  
-    
-    private postKindergardenData(kindergarden: Kindergarden, page: number) {
       this.http.post('http://localhost:5000/kindergardens', kindergarden).subscribe(_ => {
         this.getKindergarden(page);
       });

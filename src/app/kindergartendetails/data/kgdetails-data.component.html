@@ -1,0 +1,26 @@
+<div class="container">
+    <div class="row justify-content-center align-items-center">
+        <p class="col-xl-1 col-lg-1">ID</p>
+        <p class="col-xl-3 col-lg-3">Name</p>
+        <p class="col-xl-3 col-lg-3">Adresse</p>
+        <p class="col-xl-2 col-lg-2">Betreiber</p>
+        <p class="col-xl-1 col-lg-1">Typ</p>
+        <p class="col-xl-1 col-lg-1">verfügbare Plätze</p>
+        <p class="col-xl-1 col-lg-1">Foto</p>
+    </div>
+    <div *ngFor="let kindergarden of storeService.kindergardens" class="row justify-content-center align-items-center">
+        <p class="col-xl-1 col-lg-1">{{kindergarden.id}}</p>
+        <p class="col-xl-3 col-lg-3">{{kindergarden.name}}</p>
+        <p class="col-xl-3 col-lg-3">{{kindergarden.address}}</p>
+        <p class="col-xl-2 col-lg-2">{{kindergarden.betreiber}}</p>
+        <p class="col-xl-1 col-lg-1">{{kindergarden.typ}}</p>
+        <p class="col-xl-1 col-lg-1">{{kindergarden.availablePlaces }}</p> 
+        <img class="col-xl-1 col-lg-1" [src]="kindergarden.uploadedPicture" alt="Kindergarten Image">
+    </div>
+
+    <div class="row">
+        <div class="col-12 d-flex justify-content-center">
+            <button [ngClass]="page == currentPage ? 'active' : ''" (click)="selectPage(page)" type="button" *ngFor="let page of returnAllPages()">{{page}}</button>
+        </div>
+    </div>
+</div>

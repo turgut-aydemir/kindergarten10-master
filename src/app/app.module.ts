@@ -14,6 +14,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { KindergartenComponent } from './kindergarten/kindergarten.component';
 import { AddKGDataComponent } from './kindergarten/add-data/add-kg-data.component';
 import { KGDataComponent } from './kindergarten/data/kg-data.component';
+import { KindergartendetailsComponent } from './kindergartendetails/kindergartendetails.component';
+import { KGDetailsDataComponent } from './kindergartendetails/data/kgdetails-data.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { KGDataComponent } from './kindergarten/data/kg-data.component';
     DataComponent,
     HeaderComponent,
     ButtonComponent,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
+    KindergartendetailsComponent,
+    KGDetailsDataComponent
   ],
   imports: [
     BrowserModule,

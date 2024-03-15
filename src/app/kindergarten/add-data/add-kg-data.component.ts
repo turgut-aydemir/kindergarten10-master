@@ -22,9 +22,7 @@ export class AddKGDataComponent implements OnInit{
   ngOnInit(): void {
     this.addKindergartenForm = this.formbuilder.group({
       name: ['', [Validators.required]],
-      betreiber: ['', Validators.required],
       address: ['', Validators.required],
-      typ: [, Validators.required],
       availablePlaces: [, Validators.required]
     })
   }
